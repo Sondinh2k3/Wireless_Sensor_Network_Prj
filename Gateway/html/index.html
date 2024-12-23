@@ -1,0 +1,110 @@
+<!DOCTYPE HTML><html>
+<head>
+  <title>Hien thi DHT11</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link rel="icon" href="data:,">
+  <style>
+    html {
+    font-family: Arial; 
+    display: inline-block; 
+    text-align: center;
+}
+
+h1 {  
+    font-size: 2rem;
+}
+
+body {  
+    margin: 0;
+}
+
+.topnav { 
+    overflow: hidden; 
+    background-color: #2f4468; 
+    color: white; 
+    font-size: 1.7rem; 
+}
+
+.content { 
+    padding: 20px; 
+}
+
+.card {
+    background-color: white; 
+    box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
+ }
+
+.cards { 
+    max-width: 700px; 
+    margin: 0 auto; 
+    display: grid; 
+    grid-gap: 2rem; 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+ }
+
+.reading { 
+    font-size: 2.8rem; 
+}
+
+.timestamp { 
+    color: #bebebe; 
+    font-size: 1rem; 
+}
+
+.card-title{ 
+    font-size: 1.2rem; 
+    font-weight : bold; 
+}
+
+.card.temperature { 
+    color: #B10F2E; 
+}
+
+.card.humidity { 
+    color: #50B8B4; 
+}
+
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <h1>Son Dinh</h1>
+  </div>
+  <div class="content">
+    <div class="cards">
+      <div class="card temperature">
+        <p class="card-title"><i class="fas fa-thermometer-half"></i> TEMPERATURE</p><p><span class="reading"><span id="t1"></span> &deg;C</span></p><p class="timestamp">Min = 0&deg;C, Max = 50&deg;C<span id="rt1"></span></p>
+      </div>
+      <div class="card humidity">
+        <p class="card-title"><i class="fas fa-tint"></i>  HUMIDITY</p><p><span class="reading"><span id="h1"></span> &percnt;</span></p><p class="timestamp">Min = 20&percnt; RH, Max = 90&percnt; RH <span id="rh1"></span></p>
+      </div>
+     
+    </div>
+  </div>
+
+
+
+<script>
+var xhttp1 = new XMLHttpRequest();
+
+xhttp1.onreadystatechange = function(){
+    const obj = JSON.parse(this.responseText);
+    var element1 = document.getElementById('t1');
+    element1.innerText = obj.temperature;
+    var element2 = document.getElementById('h1');
+    element2.innerText = obj.humidity;
+}
+
+
+setInterval(function() {
+    xhttp1.open("GET", "/getdatadht11", true);
+    xhttp1.send();
+}, 1000);
+
+
+</script>
+
+</body>
+</html>
